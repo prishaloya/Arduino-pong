@@ -1,3 +1,10 @@
+
+
+https://github.com/user-attachments/assets/1ee9051c-e86e-42f7-88dd-97d4d8a7b334
+
+<img width="1280" height="960" alt="Hardware3" src="https://github.com/user-attachments/assets/bc440046-b52c-400f-9c50-b53726054a40" />
+<img width="1280" height="960" alt="Hardware2" src="https://github.com/user-attachments/assets/042435c3-aab3-41f5-b27a-4b2c70e98b2f" />
+<img width="805" height="691" alt="Hardware" src="https://github.com/user-attachments/assets/788e03c6-b258-4e1c-aff5-e90614818948" />
 # Arduino-pong
 A Pong game built from scratch on an Arduino Uno using an 8×8 MAX7219 LED matrix.
 
@@ -53,6 +60,18 @@ GND- GND
 * LED matrix graphics
 * Button input using internal pull-up resistors
 
+## Images
+
+<img width="805" height="691" alt="Hardware" src="https://github.com/user-attachments/assets/e9c49ae5-4e32-4cdb-b205-645523d6052e" />
+
+<img width="1280" height="960" alt="Hardware2" src="https://github.com/user-attachments/assets/1c67fc77-4d18-48bf-8710-155a105bbe6b" />
+
+<img width="1280" height="960" alt="Hardware3" src="https://github.com/user-attachments/assets/a8d21b89-0eae-48c6-b379-47a0e52c7015" />
+
+
+## Working Video
+
+https://github.com/user-attachments/assets/d4625cb5-de70-4923-b910-478b8ee09e57
 
 
 
