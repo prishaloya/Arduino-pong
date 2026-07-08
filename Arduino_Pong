@@ -1,0 +1,192 @@
+#include <MD_MAX72xx.h>
+#include <MD_Parola.h>
+#include <SPI.h>
+
+#define HARDWARE_TYPE MD_MAX72XX::FC16_HW
+#define MAX_DEVICES 1
+#define CS_PIN 10
+
+MD_MAX72XX mx(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+MD_Parola display(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+
+// Buttons
+const int b1 = 2;
+const int b2 = 3;
+
+// Ball
+int ballRow = 3;
+int ballCol = 3;
+
+int dRow = 1;
+int dCol = 1;
+
+// Paddle
+struct Paddle
+{
+  int top;
+  int col;
+  int length;
+};
+
+Paddle player = {5, 1, 3};
+
+void setup()
+{
+  pinMode(b1, INPUT_PULLUP);
+  pinMode(b2, INPUT_PULLUP);
+
+  mx.begin();
+  mx.clear();
+
+  display.begin();
+  display.displayClear();
+}
+
+void loop()
+{
+  movePaddle();
+
+  if (checkWallCollision())
+  {
+    showGameOver();
+    resetGame();
+    return;
+  }
+
+  checkPaddleCollision();
+
+  moveBall();
+
+  drawGame();
+
+  delay(100);
+}
+
+// Paddle Movement
+
+void movePaddle()
+{
+  if (digitalRead(b1) == LOW && player.top + player.length - 1 < 7)
+  {
+    player.top++;
+
+  }
+
+  if (digitalRead(b2) == LOW && player.top > 0)
+  {
+    player.top--;
+
+  }
+}
+
+// Wall Collision
+
+bool checkWallCollision()
+{
+  // Top & Bottom
+  if (ballRow + dRow > 7 || ballRow + dRow < 0)
+  {
+    dRow = -dRow;
+  }
+
+  // Right Wall
+  if (ballCol + dCol > 7)
+  {
+    dCol = -dCol;
+  }
+
+  // Missed Paddle
+  if (ballCol + dCol < 0)
+  {
+    return true;
+  }
+
+  return false;
+}
+
+// Paddle Collision
+
+void checkPaddleCollision()
+{
+  bool hitRow =
+    (ballRow + dRow >= player.top) &&
+    (ballRow + dRow < player.top + player.length);
+
+  bool hitCol =
+    (ballCol + dCol == player.col);
+
+  if (hitRow && hitCol)
+  {
+    dCol = -dCol;
+    Serial.println("HIT!");
+  }
+}
+
+// Ball Movement
+
+void moveBall()
+{
+  ballRow += dRow;
+  ballCol += dCol;
+}
+
+// Draw Game
+
+void drawGame()
+{
+  mx.clear();
+
+  drawPaddle();
+
+  mx.setPoint(ballRow, ballCol, true);
+}
+
+void drawPaddle()
+{
+  for (int i = 0; i < player.length; i++)
+  {
+    mx.setPoint(player.top + i, player.col, true);
+  }
+}
+
+// Reset Game
+
+void resetGame()
+{
+  ballRow = 3;
+  ballCol = 3;
+
+  dRow = 1;
+  dCol = 1;
+
+  player.top = 5;
+
+  mx.clear();
+}
+
+// Game Over Animation
+
+void showGameOver()
+{
+  mx.clear();
+
+  display.displayClear();
+
+  display.displayText(
+    "GAME END",
+    PA_CENTER,
+    40,
+    1000,
+    PA_SCROLL_LEFT,
+    PA_SCROLL_LEFT
+  );
+
+  while (!display.displayAnimate())
+  {
+    
+  }
+
+  display.displayReset();
+
+  delay(500);
+}
