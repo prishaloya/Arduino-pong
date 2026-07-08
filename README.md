@@ -53,13 +53,6 @@ GND- GND
 * LED matrix graphics
 * Button input using internal pull-up resistors
 
-<img width="805" height="691" alt="Hardware" src="https://github.com/user-attachments/assets/ca71d0eb-6bc5-4c3e-a9d6-05a29614a5b9" />
-
-<img width="1280" height="960" alt="WhatsApp Image 2026-07-08 at 7 10 02 PM" src="https://github.com/user-attachments/assets/6e42cbec-89c8-4ac5-9314-cca783301e9a" />
-
-
-
-https://github.com/user-attachments/assets/771c526c-47ff-48f0-9e91-2d03b9ed8477
 
 
 
